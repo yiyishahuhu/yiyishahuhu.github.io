@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+    <meta charset="utf-8">
+
+    
+
+    <!--icon-->
+    
+        <link rel="shortcut icon" type='image/x-icon' href="/favicon.ico">
+    
+
+    <!-- 渲染优化 -->
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="HandheldFriendly" content="True" >
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- meta -->
+    
+    <title>前端加密 | booboo</title>
+    
+    
+
+    <!--Social link-->
+     
+        <meta name="description" content="在平时的渗透测试中经常会有一些奇奇怪怪的参数阻碍我们。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端加密">
+<meta property="og:url" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/index.html">
+<meta property="og:site_name" content="booboo">
+<meta property="og:description" content="在平时的渗透测试中经常会有一些奇奇怪怪的参数阻碍我们。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-d231ec15bf194f07a08d707d32f46d5b.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-4ecf8e9b782b42be894f33cc29a58cb2.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-2aada77235f94d129b40b5b049ba4556.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-13f4b72cc67f41cb83b908d7bc705748.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-9803a921768d4ff095bcac72821320b7.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-fb287d88e2de472faf5388039fb8b91d.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-09470f0ef53147859894758215ca776e.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-cf9b7db07c77423099c9ddf1d5547f55.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-53591f7a7c0e49c98724b0ac877a393f.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/%E5%B0%9D%E8%AF%95%E8%A7%A3%E5%86%B3%E9%AA%8C%E7%AD%BE.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-c4876cca074d4ec8a0027c164f5c8ede.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-eb81ca699892440ab85347cd1e094924.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-e46762ece2dd46d1b6d342c1279d1494.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-2a840b8fdff94bc8b8d977f39b94810e.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-78bc5068acfc4a9ea7fdc08af2ef2941.png">
+<meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-9d75e778af244ec09a0a71e4462684ba.png">
+<meta property="article:published_time" content="2020-06-21T07:46:13.000Z">
+<meta property="article:modified_time" content="2020-06-21T08:13:45.167Z">
+<meta property="article:author" content="booboo">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-d231ec15bf194f07a08d707d32f46d5b.png">
+    
+
+    <!-- feed -->
+    
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-theme-cards@0.5/dist/css/style.min.css">
+ 
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-theme-cards@0.4/dist/css/github.min.css" crossorigin="anonymous" media="none" onload="this.media='all'">
+    
+
+    
+
+     
+
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+    <body>
+        <div id="app">
+            <header class="header">
+    <div class="header__left">
+        <a href="/" class="button">
+            <span class="logo__text">
+                booboo 
+            </span>
+        </a>
+    </div>
+    <div class="header__right">
+        
+            <div class="cover__menus">
+                
+                    <a href="/" class="cover-menu button">
+                        首页
+                    </a>
+                
+                    <a href="/archives/" class="cover-menu button">
+                        归档
+                    </a>
+                
+                    <a href="/categories/" class="cover-menu button">
+                        分类
+                    </a>
+                
+                    <a href="/tags/" class="cover-menu button">
+                        标签
+                    </a>
+                
+                    <a href="/friends/" class="cover-menu button">
+                        友链
+                    </a>
+                
+            </div>
+        
+        
+         
+            <a href="#" id="b2t" style="display: block">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='32' height='32' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M13.889,11.611c-0.17,0.17-0.443,0.17-0.612,0l-3.189-3.187l-3.363,3.36c-0.171,0.171-0.441,0.171-0.612,0c-0.172-0.169-0.172-0.443,0-0.611l3.667-3.669c0.17-0.17,0.445-0.172,0.614,0l3.496,3.493C14.058,11.167,14.061,11.443,13.889,11.611 M18.25,10c0,4.558-3.693,8.25-8.25,8.25c-4.557,0-8.25-3.692-8.25-8.25c0-4.557,3.693-8.25,8.25-8.25C14.557,1.75,18.25,5.443,18.25,10 M17.383,10c0-4.07-3.312-7.382-7.383-7.382S2.618,5.93,2.618,10S5.93,17.381,10,17.381S17.383,14.07,17.383,10"></path>
+                </svg>
+            </a>
+        
+        
+            <a class="dropdown-icon button" id="btn-dropdown">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path fill="currentColor" d="M3.314,4.8h13.372c0.41,0,0.743-0.333,0.743-0.743c0-0.41-0.333-0.743-0.743-0.743H3.314c-0.41,0-0.743,0.333-0.743,0.743C2.571,4.467,2.904,4.8,3.314,4.8z M16.686,15.2H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,15.2,16.686,15.2z M16.686,9.257H3.314c-0.41,0-0.743,0.333-0.743,0.743s0.333,0.743,0.743,0.743h13.372c0.41,0,0.743-0.333,0.743-0.743S17.096,9.257,16.686,9.257z"></path>
+                </svg>
+            </a>
+            <div class="dropdown-menus" id="dropdown-menus">
+                <a class="dropback-icon button" id="btn-dropback">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width='24' height='24' fill="none" stroke="currentColor" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+                        <path fill="currentColor" d="M11.469,10l7.08-7.08c0.406-0.406,0.406-1.064,0-1.469c-0.406-0.406-1.063-0.406-1.469,0L10,8.53l-7.081-7.08c-0.406-0.406-1.064-0.406-1.469,0c-0.406,0.406-0.406,1.063,0,1.469L8.531,10L1.45,17.081c-0.406,0.406-0.406,1.064,0,1.469c0.203,0.203,0.469,0.304,0.735,0.304c0.266,0,0.531-0.101,0.735-0.304L10,11.469l7.08,7.081c0.203,0.203,0.469,0.304,0.735,0.304c0.267,0,0.532-0.101,0.735-0.304c0.406-0.406,0.406-1.064,0-1.469L11.469,10z"></path>
+                    </svg>
+                </a>
+                
+                    <a href="/" class="dropdown-menu button">
+                        首页
+                    </a>
+                
+                    <a href="/archives/" class="dropdown-menu button">
+                        归档
+                    </a>
+                
+                    <a href="/categories/" class="dropdown-menu button">
+                        分类
+                    </a>
+                
+                    <a href="/tags/" class="dropdown-menu button">
+                        标签
+                    </a>
+                
+                    <a href="/friends/" class="dropdown-menu button">
+                        友链
+                    </a>
+                
+            </div>
+            <script>
+                document.getElementById('btn-dropdown').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    dd.style.transform = 'translateY(0)';
+                    dd.style['box-shadow'] = '0 10px 30px 0 rgba(0,0,0,.1)'
+                });
+                document.getElementById('btn-dropback').addEventListener('click', () => {
+                    const dd = document.getElementById('dropdown-menus');
+                    dd.style.transform = 'translateY(calc(-100% - 20px))';
+                    dd.style['box-shadow'] = 'none'
+                });
+            </script>
+        
+    </div>
+</header>
+
+
+            <main class="main">
+    <div class="post-title">
+    <h1 class="post-title__text">
+        前端加密
+    </h1>
+    <div class="post-title__meta">
+        
+            <a href="/archives/2020/06/" class="button" style="color: #808080;">
+    2020-06-21
+</a>
+        
+        
+            
+    <span class="separate-dot"></span><a href="/categories/web%E5%AE%89%E5%85%A8/" class="button">web安全</a>
+
+ 
+        
+        
+     
+ 
+
+  
+    </div>
+</div>
+
+
+    <div class="post__with-side">
+        <aside class="post-side">
+            <div class="post-side__toc">
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#开始"><span class="toc-text">开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#寻找解密函数"><span class="toc-text">寻找解密函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重新加密"><span class="toc-text">重新加密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#寻找签名函数"><span class="toc-text">寻找签名函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重新签名"><span class="toc-text">重新签名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用python调用js批量生成密文"><span class="toc-text">利用python调用js批量生成密文</span></a></li></ol>
+            </div>
+        </aside>
+        <article class="post content-card">
+            <div class="post__header">
+                
+                     
+                
+                
+                    
+    <div class="post__expire" id="post-expired-notify">
+        <p>
+            本文最后更新于 <span id="expire-date"></span> 天前，文中部分描述可能已经过时。
+        </p>
+    </div>
+    <script>
+        (() => {
+            var update = Date.parse("2020-06-21"),
+                date = new Date(),
+                now = date.getTime(),
+                expire = now - update,
+                expire_days = Math.floor(expire/(24*3600*1000));
+            if (expire_days >= 120) {
+                document.querySelectorAll('#expire-date')[0].innerHTML = expire_days;
+                document.querySelectorAll('#post-expired-notify')[0].style.display = 'block';
+            }
+        })();
+    </script>
+
+                
+            </div>
+            <div class="post__content">
+                <div class="md-content">
+                    <h1 id="在平时的渗透测试中经常会有一些奇奇怪怪的参数阻碍我们。"><a href="#在平时的渗透测试中经常会有一些奇奇怪怪的参数阻碍我们。" class="headerlink" title="在平时的渗透测试中经常会有一些奇奇怪怪的参数阻碍我们。"></a><code>在平时的渗透测试中经常会有一些奇奇怪怪的参数阻碍我们。</code></h1><a id="more"></a>
+
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>在某次渗透测试中发现如下数据包。</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-d231ec15bf194f07a08d707d32f46d5b.png" alt="image-d231ec15bf194f07a08d707d32f46d5b"></p>
+<p>像这样的，里面的参数都是经过加密的，看着似乎是base64，尝试解码无解。卒！！！！！！！！ 于是想到前端加密，F12然后全局搜索encrypt。</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-4ecf8e9b782b42be894f33cc29a58cb2.png" alt="image-4ecf8e9b782b42be894f33cc29a58cb2"></p>
+<p>双击打开</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-2aada77235f94d129b40b5b049ba4556.png" alt="image-2aada77235f94d129b40b5b049ba4556"></p>
+<p>经过分析使用的des的ECB模式加密，填充方式Pkcs7。</p>
+<h2 id="寻找解密函数"><a href="#寻找解密函数" class="headerlink" title="寻找解密函数"></a>寻找解密函数</h2><p>接下来只需要找到密钥就可以了进行解密了。</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-13f4b72cc67f41cb83b908d7bc705748.png" alt="image-13f4b72cc67f41cb83b908d7bc705748"></p>
+<p>密钥应该就是这个tdesKey了，继续全局搜索。</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-9803a921768d4ff095bcac72821320b7.png" alt="BP"></p>
+<p>看到了tDesKey，双击打开，发现里面有不少东西。</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-fb287d88e2de472faf5388039fb8b91d.png" alt="BP"></p>
+<p>现在已经有了密钥，加密方式，由于des是对称加密算法，加密密钥也就是解密密钥，现在尝试<a href="http://tool.chacuo.net/cryptdes" target="_blank" rel="noopener">解密</a></p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-09470f0ef53147859894758215ca776e.png" alt="BP"></p>
+<p>成功解密出了明文，这样我们就可以构造自己需要的信息了。</p>
+<h3 id="重新加密"><a href="#重新加密" class="headerlink" title="重新加密"></a>重新加密</h3><p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-cf9b7db07c77423099c9ddf1d5547f55.png" alt="BP"></p>
+<p>将用户名替换成admin重新发包。</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-53591f7a7c0e49c98724b0ac877a393f.png" alt="BP"></p>
+<p>验签失败，发现在request包中还有一个sign，好烦！！！</p>
+<h2 id="寻找签名函数"><a href="#寻找签名函数" class="headerlink" title="寻找签名函数"></a>寻找签名函数</h2><p>继续在js中寻找sign。</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/%E5%B0%9D%E8%AF%95%E8%A7%A3%E5%86%B3%E9%AA%8C%E7%AD%BE.png" alt="BP"></p>
+<p>加密函数中同时也有sign，也就是说，只要使用这个函数进行加密，同时会生成一个唯一的sign进行验签。</p>
+<h3 id="重新签名"><a href="#重新签名" class="headerlink" title="重新签名"></a>重新签名</h3><p>在控制台下输入此函数，以及要加密的内容</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-c4876cca074d4ec8a0027c164f5c8ede.png" alt="BP"></p>
+<p>成功得到加密后的结果以及sign，替换掉原来的内容发送试试。</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-eb81ca699892440ab85347cd1e094924.png" alt="BP"></p>
+<p>看来是成功破解了加密以及验签。 至此关于加密破解已经完了，那么我们要是想批量生成加密后的密文用于爆破呢？</p>
+<h2 id="利用python调用js批量生成密文"><a href="#利用python调用js批量生成密文" class="headerlink" title="利用python调用js批量生成密文"></a>利用python调用js批量生成密文</h2><p>刷新页面，将和加密有关的js按顺序保存到一个js里面。</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-e46762ece2dd46d1b6d342c1279d1494.png" alt="BP"></p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-2a840b8fdff94bc8b8d977f39b94810e.png" alt="BP"></p>
+<p>然后在这段js最后面我们自己写了两个函数，一个用于生成密文，一个用于生成sign。 在python有一个execjs模块可以用于调用js。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> execjs<span class="comment">#引入execjs</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">r"xxx.js"</span>,<span class="string">"r"</span>) <span class="keyword">as</span> f:</span><br><span class="line">	htmlstr = <span class="string">""</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> f:</span><br><span class="line">		htmlstr = htmlstr+i</span><br><span class="line"><span class="comment">#读取本地js文件</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrypt</span><span class="params">(str,key)</span>:</span><span class="comment">#用于获取密文</span></span><br><span class="line">	jsstr = htmlstr<span class="comment">#获取js</span></span><br><span class="line">	ctx = execjs.compile(jsstr)<span class="comment">#解析js代码</span></span><br><span class="line">	encry_str = ctx.call(<span class="string">"test_1"</span>,str,key)<span class="comment">#调用js中函数，并传递参数给js</span></span><br><span class="line">	<span class="comment">#print encry_str</span></span><br><span class="line">	<span class="keyword">return</span> encry_str</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sign</span><span class="params">(str)</span>:</span><span class="comment">#用于获取sign</span></span><br><span class="line">	jsstr = htmlstr<span class="comment">#获取js</span></span><br><span class="line">	ctx = execjs.compile(jsstr)<span class="comment">#解析js代码</span></span><br><span class="line">	sign_str = ctx.call(<span class="string">"test_2"</span>,str)<span class="comment">#调用js中函数，并传递参数给js</span></span><br><span class="line">	<span class="comment">#print sign_str</span></span><br><span class="line">	<span class="keyword">return</span> sign_str</span><br></pre></td></tr></table></figure>
+
+<p>这下结合明文就可以批量生成密文和用于验签的sign了。</p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-78bc5068acfc4a9ea7fdc08af2ef2941.png" alt></p>
+<p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-9d75e778af244ec09a0a71e4462684ba.png" alt></p>
+<p>接下来只要将他们一一对应放入burp就可以用于爆破了。</p>
+
+                </div>
+            </div>
+            
+                 
+            
+            
+                <div class="post-meta post-footer__meta">
+    <p>
+        最后更新于：2020-06-21
+    </p>
+</div> 
+            
+            
+                <div class="post-cats post-card__cats">
+    
+        <a href="/categories/web%E5%AE%89%E5%85%A8/" class="post-cats__link button">web安全</a>
+    
+</div> 
+                <div class="post-tags post-card__tags">
+    
+</div> 
+             
+        </article>
+        <br>
+        
+    </div>
+
+
+</main>
+<footer class="footer">
+     
+
+
+     
+  
+    
+        
+            <p>Copyright © 2020</p>
+
+        
+    
+</footer>
+
+
+        </div>
+        
+
+ 
+
+ 
+
+ 
+
+  
+
+ 
+
+
+
+
+
+
+
+
+    </body>
+</html>
