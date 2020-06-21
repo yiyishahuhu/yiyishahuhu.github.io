@@ -50,8 +50,11 @@
 <meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-78bc5068acfc4a9ea7fdc08af2ef2941.png">
 <meta property="og:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-9d75e778af244ec09a0a71e4462684ba.png">
 <meta property="article:published_time" content="2020-06-21T07:46:13.000Z">
-<meta property="article:modified_time" content="2020-06-21T08:13:45.167Z">
+<meta property="article:modified_time" content="2020-06-21T09:56:44.548Z">
 <meta property="article:author" content="booboo">
+<meta property="article:tag" content="加密">
+<meta property="article:tag" content="fuzz">
+<meta property="article:tag" content="web安全">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="http://yoursite.com/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-d231ec15bf194f07a08d707d32f46d5b.png">
     
@@ -198,7 +201,7 @@
     <div class="post__with-side">
         <aside class="post-side">
             <div class="post-side__toc">
-                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#开始"><span class="toc-text">开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#寻找解密函数"><span class="toc-text">寻找解密函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重新加密"><span class="toc-text">重新加密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#寻找签名函数"><span class="toc-text">寻找签名函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重新签名"><span class="toc-text">重新签名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用python调用js批量生成密文"><span class="toc-text">利用python调用js批量生成密文</span></a></li></ol>
+                <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#0x01-开始"><span class="toc-text">0x01 - 开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x02-寻找解密函数"><span class="toc-text">0x02 - 寻找解密函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重新加密"><span class="toc-text">重新加密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-寻找签名函数"><span class="toc-text">0x03 - 寻找签名函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重新签名"><span class="toc-text">重新签名</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#0x03-利用python调用js批量生成密文"><span class="toc-text">0x03 - 利用python调用js批量生成密文</span></a></li></ol>
             </div>
         </aside>
         <article class="post content-card">
@@ -231,16 +234,17 @@
             </div>
             <div class="post__content">
                 <div class="md-content">
-                    <h1 id="在平时的渗透测试中经常会有一些奇奇怪怪的参数阻碍我们。"><a href="#在平时的渗透测试中经常会有一些奇奇怪怪的参数阻碍我们。" class="headerlink" title="在平时的渗透测试中经常会有一些奇奇怪怪的参数阻碍我们。"></a><code>在平时的渗透测试中经常会有一些奇奇怪怪的参数阻碍我们。</code></h1><a id="more"></a>
+                    <p><code>在平时的渗透测试中经常会有一些奇奇怪怪的参数阻碍我们。</code></p>
+<a id="more"></a>
 
-<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><p>在某次渗透测试中发现如下数据包。</p>
+<h2 id="0x01-开始"><a href="#0x01-开始" class="headerlink" title="0x01 - 开始"></a>0x01 - 开始</h2><p>在某次渗透测试中发现如下数据包。</p>
 <p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-d231ec15bf194f07a08d707d32f46d5b.png" alt="image-d231ec15bf194f07a08d707d32f46d5b"></p>
 <p>像这样的，里面的参数都是经过加密的，看着似乎是base64，尝试解码无解。卒！！！！！！！！ 于是想到前端加密，F12然后全局搜索encrypt。</p>
 <p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-4ecf8e9b782b42be894f33cc29a58cb2.png" alt="image-4ecf8e9b782b42be894f33cc29a58cb2"></p>
 <p>双击打开</p>
 <p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-2aada77235f94d129b40b5b049ba4556.png" alt="image-2aada77235f94d129b40b5b049ba4556"></p>
 <p>经过分析使用的des的ECB模式加密，填充方式Pkcs7。</p>
-<h2 id="寻找解密函数"><a href="#寻找解密函数" class="headerlink" title="寻找解密函数"></a>寻找解密函数</h2><p>接下来只需要找到密钥就可以了进行解密了。</p>
+<h2 id="0x02-寻找解密函数"><a href="#0x02-寻找解密函数" class="headerlink" title="0x02 - 寻找解密函数"></a>0x02 - 寻找解密函数</h2><p>接下来只需要找到密钥就可以了进行解密了。</p>
 <p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-13f4b72cc67f41cb83b908d7bc705748.png" alt="image-13f4b72cc67f41cb83b908d7bc705748"></p>
 <p>密钥应该就是这个tdesKey了，继续全局搜索。</p>
 <p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-9803a921768d4ff095bcac72821320b7.png" alt="BP"></p>
@@ -253,7 +257,7 @@
 <p>将用户名替换成admin重新发包。</p>
 <p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-53591f7a7c0e49c98724b0ac877a393f.png" alt="BP"></p>
 <p>验签失败，发现在request包中还有一个sign，好烦！！！</p>
-<h2 id="寻找签名函数"><a href="#寻找签名函数" class="headerlink" title="寻找签名函数"></a>寻找签名函数</h2><p>继续在js中寻找sign。</p>
+<h2 id="0x03-寻找签名函数"><a href="#0x03-寻找签名函数" class="headerlink" title="0x03 - 寻找签名函数"></a>0x03 - 寻找签名函数</h2><p>继续在js中寻找sign。</p>
 <p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/%E5%B0%9D%E8%AF%95%E8%A7%A3%E5%86%B3%E9%AA%8C%E7%AD%BE.png" alt="BP"></p>
 <p>加密函数中同时也有sign，也就是说，只要使用这个函数进行加密，同时会生成一个唯一的sign进行验签。</p>
 <h3 id="重新签名"><a href="#重新签名" class="headerlink" title="重新签名"></a>重新签名</h3><p>在控制台下输入此函数，以及要加密的内容</p>
@@ -261,7 +265,7 @@
 <p>成功得到加密后的结果以及sign，替换掉原来的内容发送试试。</p>
 <p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-eb81ca699892440ab85347cd1e094924.png" alt="BP"></p>
 <p>看来是成功破解了加密以及验签。 至此关于加密破解已经完了，那么我们要是想批量生成加密后的密文用于爆破呢？</p>
-<h2 id="利用python调用js批量生成密文"><a href="#利用python调用js批量生成密文" class="headerlink" title="利用python调用js批量生成密文"></a>利用python调用js批量生成密文</h2><p>刷新页面，将和加密有关的js按顺序保存到一个js里面。</p>
+<h2 id="0x03-利用python调用js批量生成密文"><a href="#0x03-利用python调用js批量生成密文" class="headerlink" title="0x03 - 利用python调用js批量生成密文"></a>0x03 - 利用python调用js批量生成密文</h2><p>刷新页面，将和加密有关的js按顺序保存到一个js里面。</p>
 <p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-e46762ece2dd46d1b6d342c1279d1494.png" alt="BP"></p>
 <p><img src="/2020/06/21/%E5%89%8D%E7%AB%AF%E5%8A%A0%E5%AF%86/image-2a840b8fdff94bc8b8d977f39b94810e.png" alt="BP"></p>
 <p>然后在这段js最后面我们自己写了两个函数，一个用于生成密文，一个用于生成sign。 在python有一个execjs模块可以用于调用js。</p>
@@ -291,6 +295,12 @@
     
 </div> 
                 <div class="post-tags post-card__tags">
+    
+        <a href="/tags/%E5%8A%A0%E5%AF%86/" class="post-tags__link button"># 加密</a>
+    
+        <a href="/tags/fuzz/" class="post-tags__link button"># fuzz</a>
+    
+        <a href="/tags/web%E5%AE%89%E5%85%A8/" class="post-tags__link button"># web安全</a>
     
 </div> 
              
